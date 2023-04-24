@@ -41,6 +41,8 @@
         <notificationGroup id="Process D Libs"
                            displayType="BALLOON"/>
 
+        <projectOpenProcessor id="DubProjectOpenProcessor" implementation="io.github.intellij.dub.project.DubProjectOpenProcessor"/>
+
         <!--<externalSystemManager id="DubManager" implementation="net.masterthought.dlanguage.dub.DubManager"/>-->
         <!--<externalSystemConfigLocator implementation="io.github.intellij.dub.ConfigLocator"/>-->
         <!--<externalProjectDataService implementation=""/>-->
