@@ -63,6 +63,8 @@
         <!--<externalSystemNotificationExtension implementation=""/>-->
         <!--<externalSystemTaskNotificationListener implementation=""/>-->
         <!--<externalSystemExecutionConsoleManager implementation=""/>-->
+
+        <externalSystemUnlinkedProjectAware implementation="io.github.intellij.dub.project.DubUnlinkedProjectAware"/>
     </extensions>
 
     <extensions defaultExtensionNs="JavaScript">
