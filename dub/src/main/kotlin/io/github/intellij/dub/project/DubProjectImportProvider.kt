@@ -1,14 +1,16 @@
 package io.github.intellij.dub.project
 
+import com.intellij.openapi.externalSystem.service.project.wizard.AbstractExternalProjectImportProvider
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.vfs.VirtualFile
-import com.intellij.projectImport.ProjectImportProvider
+import io.github.intellij.dub.Dub
 import java.util.*
 
 /**
  * IDEA only
  */
-class DubProjectImportProvider : ProjectImportProvider(DubProjectImportBuilder()) {
+class DubProjectImportProvider : AbstractExternalProjectImportProvider(DubProjectImportBuilder(), Dub.SYSTEM_ID) {
+
     override fun canImport(
         fileOrDirectory: VirtualFile,
         project: Project?
