@@ -21,7 +21,8 @@ class DubConfigFileListener(
     private val module: Module
 ) : VirtualFileListener {
     init {
-        processDLibs(project, module, true, false)
+        // FIXME was enabled
+        //processDLibs(project, module, true, false)
         project.messageBus
             .syncPublisher(Topics.DUB_FILE_CHANGE)
             .onDubFileChange(project, module, dubConfigFile)
