@@ -14,7 +14,7 @@ import io.github.intellij.dub.project.DubConfigFileListener.Companion.getDubFile
 class DubListenerComponent : ProjectActivity {
     override suspend fun execute(project: Project) {
         for (module in ModuleManager.getInstance(project).modules) {
-            val dubFile = getDubFileFromModule(module!!)
+            val dubFile = getDubFileFromModule(module)
             if (dubFile != null) {
                 project
                     .messageBus
