@@ -3,6 +3,8 @@
 
     <depends>com.intellij.modules.json</depends>
 
+    <resource-bundle>messages.DubBundle</resource-bundle>
+
     <extensions defaultExtensionNs="com.intellij">
         <!-- Tool Windows are the bits generally displayed on right hand side of Intellij (eg: Ant,Maven,Gradle)-->
         <toolWindow id="DubToolBar" anchor="right" icon="/icons/dub-ball.png"
@@ -55,8 +57,12 @@
 
         <projectOpenProcessor id="DubProjectOpenProcessor" implementation="io.github.intellij.dub.project.DubProjectOpenProcessor"/>
 
-        <!--<externalSystemManager id="DubManager" implementation="net.masterthought.dlanguage.dub.DubManager"/>-->
-        <!--<externalSystemConfigLocator implementation="io.github.intellij.dub.ConfigLocator"/>-->
+        <projectConfigurable groupId="build.tools" groupWeight="110" id="reference.settings-dialog.project.dub"
+                             instance="io.github.intellij.dub.settings.DubConfigurable"
+                             key="dub.name" bundle="messages.DubBundle"/>
+
+        <externalSystemManager id="DubManager" implementation="io.github.intellij.dub.DubManager"/>
+        <externalSystemConfigLocator implementation="io.github.intellij.dub.settings.DubConfigLocator"/>
         <!--<externalProjectDataService implementation=""/>-->
         <!--<externalSystemViewContributor implementation=""/>-->
         <!--<externalProjectStructureCustomizer implementation=""/>-->
@@ -65,6 +71,12 @@
         <!--<externalSystemExecutionConsoleManager implementation=""/>-->
 
         <externalSystemUnlinkedProjectAware implementation="io.github.intellij.dub.project.DubUnlinkedProjectAware"/>
+
+        <applicationService serviceImplementation="io.github.intellij.dub.settings.DubSystemSettings"/>
+
+        <projectService serviceImplementation="io.github.intellij.dub.settings.DubSettings"/>
+        <projectService serviceImplementation="io.github.intellij.dub.settings.DubLocalSettings"/>
+        <projectService serviceImplementation="io.github.intellij.dub.settings.DubExecutionSettings"/>
     </extensions>
 
     <extensions defaultExtensionNs="JavaScript">
