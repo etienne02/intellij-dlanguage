@@ -35,6 +35,18 @@
         <postStartupActivity
             implementation="io.github.intellij.dub.project.DubListenerComponent"/>
 
+        <starter.moduleImporter implementation="io.github.intellij.dub.module.DubStarterModuleImporter"/>
+
+        <notificationGroup id="DUB run configuration"
+                           displayType="BALLOON"/>
+        <notificationGroup id="DubNotification"
+                           displayType="BALLOON"/>
+        <notificationGroup id="Dub"
+                           displayType="BALLOON"/>
+        <notificationGroup id="Dub Import"
+                           displayType="BALLOON"/>
+        <notificationGroup id="Process D Libs"
+                           displayType="BALLOON"/>
         <notificationGroup id="dub-notifications"
                            bundle="i18n.text"
                            key="dub.notification.group.name"
