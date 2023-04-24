@@ -30,6 +30,8 @@
         <postStartupActivity
             implementation="io.github.intellij.dub.project.DubListenerComponent"/>
 
+        <starter.moduleImporter implementation="io.github.intellij.dub.module.DubStarterModuleImporter"/>
+
         <notificationGroup id="DUB run configuration"
                            displayType="BALLOON"/>
         <notificationGroup id="DubNotification"
