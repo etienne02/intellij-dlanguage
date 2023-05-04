@@ -64,6 +64,7 @@
         <!--<externalSystemTaskNotificationListener implementation=""/>-->
         <!--<externalSystemExecutionConsoleManager implementation=""/>-->
         <externalSystemUnlinkedProjectAware implementation="io.github.intellij.dub.project.DubUnlinkedProjectAware"/>
+        <externalSystemContentRootContributor implementation="io.github.intellij.dub.project.DubContentRootContributor"/>
         <applicationService serviceImplementation="io.github.intellij.dub.settings.DubSystemSettings"/>
 
         <projectService serviceImplementation="io.github.intellij.dub.settings.DubSettings"/>
