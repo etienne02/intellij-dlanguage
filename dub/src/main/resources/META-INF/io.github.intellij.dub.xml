@@ -66,6 +66,7 @@
 
         <externalSystemManager id="DubManager" implementation="io.github.intellij.dub.DubManager"/>
         <externalSystemConfigLocator implementation="io.github.intellij.dub.settings.DubConfigLocator"/>
+        <externalSystemContentRootContributor implementation="io.github.intellij.dub.project.DubContentRootContributor"/>
         <!--<externalProjectDataService implementation=""/>-->
         <!--<externalSystemViewContributor implementation=""/>-->
         <!--<externalProjectStructureCustomizer implementation=""/>-->
