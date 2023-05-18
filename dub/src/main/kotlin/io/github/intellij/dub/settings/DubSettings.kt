@@ -16,6 +16,8 @@ class DubSettings(project: Project) : AbstractExternalSystemSettings<DubSettings
 
     var offlineMode = false
 
+    var binaryPath: String? = null
+
     override fun subscribe(listener: ExternalSystemSettingsListener<DubProjectSettings>, parentDisposable: Disposable) {
         doSubscribe(DelegatingDubSettingsListenerAdapter(listener), parentDisposable)
     }
