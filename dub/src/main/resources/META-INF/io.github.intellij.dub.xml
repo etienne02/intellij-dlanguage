@@ -9,6 +9,9 @@
         <!-- Tool Windows are the bits generally displayed on right hand side of Intellij (eg: Ant,Maven,Gradle)-->
         <toolWindow id="DubToolBar" anchor="right" icon="/icons/dub-ball.png"
                     factoryClass="io.github.intellij.dub.toolwindow.DubToolWindow" />
+
+        <toolWindow id="DubToolBar2" anchor="right" icon="/icons/dub-ball.png"
+                    factoryClass="io.github.intellij.dub.toolwindow.DubToolWindowFactory" />
         <localInspection language="JSON"
                          displayName="Invalid dependency version"
                          groupPath="D"
