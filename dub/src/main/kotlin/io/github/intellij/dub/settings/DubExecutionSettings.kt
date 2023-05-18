@@ -5,4 +5,6 @@ import com.intellij.openapi.externalSystem.model.settings.ExternalSystemExecutio
 class DubExecutionSettings : ExternalSystemExecutionSettings() {
 
     var ideProjectPath: String? = null
+
+    var dubBinaryPath: String? = null
 }

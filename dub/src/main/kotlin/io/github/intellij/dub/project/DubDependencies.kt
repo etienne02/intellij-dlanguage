@@ -61,8 +61,8 @@ data class DubPackage(
     val postRunEnvironments: Map<String, String>? = emptyMap(),
     val options: List<String> = emptyList(),
     val files: List<DubPackageFile> = emptyList()
-) : Dependency {
-    override fun getDisplayName(): String = "$name-$version"
+) /*: Dependency*/ {
+    //override fun getDisplayName(): String = "$name-$version"
 }
 
 

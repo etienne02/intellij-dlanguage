@@ -5,7 +5,10 @@ import com.intellij.openapi.externalSystem.ExternalSystemAutoImportAware
 import com.intellij.openapi.externalSystem.ExternalSystemConfigurableAware
 import com.intellij.openapi.externalSystem.ExternalSystemManager
 import com.intellij.openapi.externalSystem.ExternalSystemUiAware
+import com.intellij.openapi.externalSystem.model.ProjectKeys
 import com.intellij.openapi.externalSystem.model.ProjectSystemId
+import com.intellij.openapi.externalSystem.model.project.ContentRootData
+import com.intellij.openapi.externalSystem.model.project.ModuleData
 import com.intellij.openapi.externalSystem.service.project.ExternalSystemProjectResolver
 import com.intellij.openapi.externalSystem.service.project.autoimport.CachingExternalSystemAutoImportAware
 import com.intellij.openapi.externalSystem.task.ExternalSystemTaskManager
@@ -18,6 +21,7 @@ import com.intellij.openapi.startup.ProjectActivity
 import com.intellij.openapi.util.Pair
 import com.intellij.util.Function
 import io.github.intellij.dub.project.DubAutoImportAware
+import io.github.intellij.dub.project.DubConfigurationParserNew
 import io.github.intellij.dub.project.DubProjectResolver
 import io.github.intellij.dub.settings.*
 import io.github.intellij.dub.task.DubTaskManager
@@ -71,13 +75,19 @@ class DubManager : ExternalSystemConfigurableAware, ExternalSystemUiAware,
 
     override fun getExecutionSettingsProvider(): Function<Pair<Project, String>, DubExecutionSettings> = Function{
         pair ->
-        /*val project = pair.first
+        val project = pair.first
         val projectPath = pair.second
         val settings = DubSettings.getInstance(project)
         val projectLevelSettings: DubProjectSettings? = settings.getLinkedProjectSettings(projectPath)
-        val rootProjectPath = projectLevelSettings?.externalProjectPath : projectPath
-        */
+        val rootProjectPath = projectLevelSettings?.externalProjectPath?: projectPath
         val result = DubExecutionSettings()
+        result.dubBinaryPath = settings.binaryPath
+
+        val dubBinaryPath = "/usr/bin/dub"
+        val parser = DubConfigurationParserNew(projectPath, dubBinaryPath)
+
+        val dubProject = parser.dubProject.get()
+        val x = dubProject.configuration
         result
     }
 
