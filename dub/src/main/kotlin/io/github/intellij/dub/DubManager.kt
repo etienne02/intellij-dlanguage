@@ -42,9 +42,9 @@ class DubManager : ExternalSystemConfigurableAware, ExternalSystemUiAware,
     override fun getExternalProjectConfigDescriptor(): FileChooserDescriptor? =
         FileChooserDescriptorFactory.createSingleFolderDescriptor()
 
-    override fun getProjectIcon(): Icon = Dub.BALL // TODO
+    override fun getProjectIcon(): Icon = DubIcons.BALL // TODO
 
-    override fun getTaskIcon(): Icon = Dub.BALL // TODO
+    override fun getTaskIcon(): Icon = DubIcons.BALL // TODO
 
     override fun getAffectedExternalProjectPath(changedFileOrDirPath: String, project: Project): String? =
         myAutoImportDelegate.getAffectedExternalProjectPath(changedFileOrDirPath, project)
