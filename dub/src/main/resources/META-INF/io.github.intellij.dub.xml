@@ -2,6 +2,7 @@
 
     <depends optional="true" config-file="dub-idea-only.xml">com.intellij.modules.java</depends>
     <depends optional="true" config-file="dub-clion-only.xml">com.intellij.modules.cidr.lang</depends>
+
     <extensions defaultExtensionNs="com.intellij">
         <!-- Tool Windows are the bits generally displayed on right hand side of Intellij (eg: Ant,Maven,Gradle)-->
         <toolWindow id="DubToolBar" anchor="right" icon="/icons/dub-ball.png"
@@ -49,6 +50,10 @@
         <!--<externalSystemNotificationExtension implementation=""/>-->
         <!--<externalSystemTaskNotificationListener implementation=""/>-->
         <!--<externalSystemExecutionConsoleManager implementation=""/>-->
+    </extensions>
+
+    <extensions defaultExtensionNs="io.github.intellij.dlanguage">
+        <projectWizard.dlang.buildSystem implementation="io.github.intellij.dub.project.wizard.generators.DubDlangNewProjectWizard" />
     </extensions>
 
     <extensions defaultExtensionNs="JavaScript">
