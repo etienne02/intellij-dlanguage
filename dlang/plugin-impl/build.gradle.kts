@@ -72,6 +72,7 @@ dependencies {
         pluginModule(implementation (project(":debugger")))
         pluginModule(implementation (project(":sdlang")))
         pluginModule(implementation (project(":dub")))
+        pluginModule(implementation (project(":dlang:idea")))
 
         intellijIdeaCommunity(properties("ideaVersion"))
 

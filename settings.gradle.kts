@@ -6,5 +6,6 @@ include (
     "debugger",
     "sdlang",
     "dub",
-    "dlang:plugin-impl"
+    "dlang:idea",
+    "dlang:plugin-impl",
 )
