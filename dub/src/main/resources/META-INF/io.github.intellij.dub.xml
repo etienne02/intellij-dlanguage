@@ -17,6 +17,13 @@
         <consoleFilterProvider implementation="io.github.intellij.dub.run.DubConsoleFilterProvider"/>
         <analyzeStacktraceFilter implementation="io.github.intellij.dub.run.DubBuildSourceFileFilter"/>
 
+        <applicationService serviceImplementation="io.github.intellij.dub.service.DubInstallationManager"/>
+
+        <projectConfigurable parentId="build.tools"
+                             id="reference.settings-dialog.project.dub"
+                             displayName="Dub"
+                             instance="io.github.intellij.dub.config.ui.DubConfigurable"/>
+
         <externalAnnotator language="D"
                            implementationClass="io.github.intellij.dub.highlighting.annotation.DubSyntaxAnnotator"/>
 
