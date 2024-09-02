@@ -102,6 +102,7 @@ dependencies {
     implementation (project(":sdlang"))
     implementation (project(":dlang:psi-impl"))
     testImplementation (project(":dlang:plugin-impl"))
+    testImplementation("org.opentest4j:opentest4j:1.3.0")
 
     implementation (libs.gson) // used by dub parser
 
