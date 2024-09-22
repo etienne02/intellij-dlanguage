@@ -77,13 +77,23 @@ static this() {
     types_extra_interfaces["AddExpression"] = ["Expression"];
     types_children["AliasAssign"] = ["Type","OP_EQ"];
     types_extra_interfaces["AliasAssign"] = ["Declaration"];
-    types_children["AliasDeclaration"] = ["DeclaratorIdentifier*","OP_COMMA","StorageClass*","KW_ALIAS", "Type", "OP_SCOLON", "AliasInitializer*"]; types_extra_interfaces["AliasDeclaration"] = ["Declaration"]; types_children["AliasThisDeclaration"] = ["KW_ALIAS", "Identifier", "KW_THIS", "OP_SCOLON"]; types_extra_interfaces["AliasThisDeclaration"] = ["Declaration"]; types_children["AlignAttribute"] = ["KW_ALIGN", "AssignExpression", "OP_PAR_RIGHT", "OP_PAR_LEFT"]; types_children["AndAndExpression"] = ["Expression*", "OP_BOOL_AND"]; types_extra_interfaces["AndAndExpression"] = ["Expression"]; types_children["AndExpression"] = ["Expression*", "OP_AND"]; types_extra_interfaces["AndExpression"] = ["Expression"]; types_children["AnonymousEnumDeclaration"] = ["Expression","OP_COLON","KW_ENUM","OP_PAR_LEFT","OP_PAR_RIGHT","Type","EnumMember*"];
+    types_children["AliasDeclaration"] = ["DeclaratorIdentifier*","OP_COMMA","StorageClass*","KW_ALIAS", "Type", "OP_SCOLON", "AliasInitializer*"];
+    types_extra_interfaces["AliasDeclaration"] = ["Declaration"];
+    types_children["AliasThisDeclaration"] = ["KW_ALIAS", "Identifier", "KW_THIS", "OP_SCOLON"];
+    types_extra_interfaces["AliasThisDeclaration"] = ["Declaration"];
+    types_children["AlignAttribute"] = ["KW_ALIGN", "AssignExpression", "OP_PAR_RIGHT", "OP_PAR_LEFT"];
+    types_children["AndAndExpression"] = ["Expression*", "OP_BOOL_AND"];
+    types_extra_interfaces["AndAndExpression"] = ["Expression"];
+    types_children["AndExpression"] = ["Expression*", "OP_AND"];
+    types_extra_interfaces["AndExpression"] = ["Expression"];
+    types_children["AnonymousEnumDeclaration"] = ["Expression","OP_COLON","KW_ENUM","OP_PAR_LEFT","OP_PAR_RIGHT","Type","EnumMember*"];
     types_extra_interfaces["AnonymousEnumDeclaration"] = ["Declaration"];
     types_children["AnonymousEnumMember"] = [];
     types_children["ArgumentList"] = ["Expression*", "OP_COMMA*"];
     types_children["Arguments"] = ["ArgumentList","OP_PAR_RIGHT", "OP_PAR_LEFT"];
     types_children["ArrayAccessExpression"] = ["Expression", "IndexExpression"];
     types_extra_interfaces["ArrayAccessExpression"] = ["Expression"];
+    types_mixins["ArrayAccessExpression"] = "DLanguageArrayAccessExpressionImplMixin";
     types_children["ArrayInitializer"] = ["OP_COMMA*", "ArrayMemberInitialization*"];
     types_children["ArrayLiteral"] = ["ArrayInitializer", "OP_BRACKET_RIGHT", "OP_BRACKET_LEFT"];
     types_children["ArrayMemberInitialization"] = ["Expression", "OP_COLON", "ArrayLiteral", "StructInitializer", "OP_BRACES_LEFT"];
@@ -109,7 +119,7 @@ static this() {
     types_children["AssertExpression"] = ["KW_ASSERT","OP_BRACES_LEFT","OP_BRACES_RIGHT" ,"Expression*", "OP_COMMA*"];
     types_extra_interfaces["AssertExpression"] = ["Expression"];
     types_children["AssignExpression"] = ["Expression*","OP_AND_EQ","OP_DIV_EQ","OP_EQ","OP_EQ_EQ","OP_GT_EQ","OP_LESS_EQ","OP_MINUS_EQ","OP_MOD_EQ","OP_MUL_EQ","OP_NOT_EQ","OP_NOT_GR_EQ","OP_NOT_LESS_EQ","OP_OR_EQ","OP_PLUS_EQ","OP_POW_EQ","OP_SH_LEFT_EQ","OP_SH_RIGHT_EQ","OP_TILDA_EQ","OP_USH_RIGHT_EQ","OP_XOR_EQ"];
-    types_extra_interfaces["AndExpression"] = ["Expression"];
+    types_extra_interfaces["AssignExpression"] = ["Expression"];
     types_children["AssocArrayLiteral"] = ["KeyValuePairs","OP_BRACKET_RIGHT","OP_BRACKET_LEFT"];
     types_children["AtAttribute"] = ["OP_AT","OP_PAR_LEFT","OP_PAR_RIGHT","Identifier", "ArgumentList","FunctionCallExpression"];
     types_children["Attribute"] = ["PragmaExpression", "KW_SYNCHRONIZED","KW_ABSTRACT","KW_AUTO","KW_ENUM","KW_EXTERN","KW_FINAL","KW_INOUT","KW_NOTHROW","KW_THROW","KW_OVERRIDE","KW_PURE","KW_REF","KW___GSHARED","KW_SCOPE","KW_STATIC","KW_EXPORT", "KW_PRIVATE","KW_PROTECTED","KW_PUBLIC","AlignAttribute","Deprecated","AtAttribute","KW_PACKAGE","IdentifierChain","LinkageAttribute","KW_CONST"];
@@ -125,6 +135,8 @@ static this() {
     types_children["BaseClass"] = ["TypeofExpression","OP_DOT","BasicType"];
     types_children["BaseClassList"] = ["BaseClass*","OP_COMMA*"];
     types_children["BasicType"] = ["Type","TypeofExpression","MixinType","Expression*","Vector","BuiltinType","QualifiedIdentifier","OP_DOT","OP_PAR_RIGHT","OP_PAR_LEFT","KW_SUPER","KW_THIS","KW_CONST","KW_IMMUTABLE","KW_INOUT","KW_SHARED"];
+    types_extra_interfaces["BasicType"] = ["DTypedElement"];
+    types_mixins["BasicType"] = "DLanguageBasicTypeImplMixin";
     types_children["BuiltinType"] = [/*todo add the types*/];  // UNUSED currently
     types_children["CaseRangeStatement"] = ["KW_CASE*","OP_TRIPLEDOT","OP_COLON*","AssignExpression", "Statement*"];
     types_extra_interfaces["CaseRangeStatement"] = ["Statement"];
@@ -132,6 +144,7 @@ static this() {
     types_extra_interfaces["CaseRangeStatement"] = ["Statement"];
     types_children["CastExpression"] = ["CastQualifier", "Type","Expression","KW_CAST","OP_PAR_LEFT","OP_PAR_RIGHT"];
     types_extra_interfaces["CastExpression"] = ["Expression"];
+    types_mixins["CastExpression"] = "DLanguageCastExpressionImplMixin";
     types_children["CastQualifier"] = ["KW_IMMUTABLE","KW_CONST","KW_SHARED","KW_INOUT"];
     types_children["Catches"] = ["LastCatch","Catch"];
     types_children["CommaExpression"] = ["Expression*", "OP_COMMA"];
@@ -207,15 +220,14 @@ static this() {
     types_extra_interfaces["ImportDeclaration"] = ["Statement", "Declaration", "DVisibilityModifier"];
     types_children["ImportExpression"] = ["ImportExpression","AssignExpression","OP_PAR_RIGHT","OP_PAR_LEFT"];
     types_extra_interfaces["ImportExpression"] = ["Expression"];
-    types_children["IndexExpression"] = ["OP_BRACKET_LEFT","OP_BRACKET_RIGHT","ArgumentList","Expression"];
+    types_children["IndexExpression"] = ["OP_BRACKET_LEFT","OP_BRACKET_RIGHT","Expression*", "OP_COMMA*", "OP_COLON*", "OP_DDOT*"];
     types_extra_interfaces["IndexExpression"] = ["Expression"];
     types_children["InExpression"] = ["ShiftExpression*","KW_IN","OP_NOT"];
-    types_children["Initializer"] = ["KW_VOID","AssignExpression", "ArrayLiteral", "StructInitializer"];
+    types_children["Initializer"] = ["KW_VOID","Expression", "ArrayLiteral", "StructInitializer"];
     types_children["InContractExpression"] = ["KW_IN","OP_PAR_LEFT", "AssertArguments", "OP_PAR_RIGHT"];
     types_children["InOutContractExpression"] = ["InContractExpression", "OutContractExpression"];
     types_children["InOutStatement"] = ["InStatement", "OutStatement"];
     types_children["InStatement"] = ["KW_IN","BlockStatement"];
-    types_children["Initializer"] = ["KW_VOID","AssignExpression", "ArrayLiteral", "StructInitializer"];
     types_children["Invariant"] = ["BlockStatement","KW_INVARIANT","OP_PAR_RIGHT","OP_PAR_LEFT"];
     types_extra_interfaces["Invariant"] = ["Declaration"];
     types_children["IsExpression"] = ["OP_PAR_RIGHT","OP_PAR_LEFT","Type","Identifier","TypeSpecialization","TemplateParameterList","OP_COMMA","OP_COLON","OP_EQ","KW_IS"];
@@ -230,6 +242,7 @@ static this() {
     types_children["LinkageAttribute"] = ["IdentifierChain","Identifier","OP_PAR_RIGHT","OP_PAR_LEFT","OP_PLUS_PLUS","KW_EXTERN","OP_COMMA"];
     types_children["LiteralExpression"] = ["KW_THIS", "KW_SUPER", "KW_NULL", "KW_TRUE", "KW_FALSE", "INTEGER_LITERAL", "FLOAT_LITERAL", "CHARACTER_LITERAL", "ALTERNATE_WYSIWYG_STRING*", "DOUBLE_QUOTED_STRING*", "WYSIWYG_STRING*", "DELIMITED_STRING*", "TOKEN_STRING*"];
     types_extra_interfaces["LiteralExpression"] = ["Expression"];
+    types_mixins["LiteralExpression"] = "DLanguageLiteralExpressionImplMixin";
     types_children["MagicLiteralExpression"] = ["KW___FILE__", "KW___FILE_FULL_PATH__", "KW___MODULE__", "KW___LINE__", "KW___FUNCTION__", "KW___PRETTY_FUNCTION__"];
     types_extra_interfaces["MagicLiteralExpression"] = ["Expression"];
     types_children["MemberFunctionAttribute"] = [ "FunctionAttribute","KW_IMMUTABLE","KW_INOUT","KW_SHARED","KW_CONST"];
@@ -247,6 +260,7 @@ static this() {
     types_children["NamespaceList"] = ["OP_COMMA",  "Expression*"];
     types_children["NewAnonClassExpression"] = ["KW_NEW","KW_CLASS","Arguments","BaseClassList", "StructBody"];
     types_children["NewExpression"] = ["KW_NEW","NewAnonClassExpression","Type", "Expression", "Arguments","OP_BRACKET_LEFT","OP_BRACKET_RIGHT"];
+    types_mixins["NewExpression"] = "DLanguageNewExpressionImplMixin";
     types_extra_interfaces["NewExpression"] = ["Expression"];
     types_children["Operands"] = ["OP_COMMA","Operands","AsmExp"];
     types_children["OrExpression"] = ["Expression*", "OP_OR"];
@@ -257,6 +271,7 @@ static this() {
     types_children["OutStatement"] = ["Identifier","BlockStatement","KW_OUT","OP_PAR_LEFT","OP_PAR_RIGHT"];
     types_children["ParameterAttribute"] = ["KW_FINAL","KW_IN","KW_LAZY","KW_OUT","KW_REF","KW_SCOPE","KW_AUTO","KW_CONST","KW_IMMUTABLE","KW_INOUT","KW_SHARED","AtAttribute"];
     types_children["ParenthesisedExpression"] = ["OP_PAR_LEFT", "Expression", "OP_PAR_RIGHT"];
+    types_mixins["ParenthesisedExpression"] = "DLanguageParenthesisedExpressionImplMixin";
     types_extra_interfaces["ParenthesisedExpression"] = ["Expression"];
     types_children["Parameters"] = ["OP_COMMA*","OP_TRIPLEDOT","Parameter*","OP_PAR_LEFT","OP_PAR_RIGHT"];
     types_children["Postblit"] = ["FunctionBody","OP_SCOLON","KW_THIS*","OP_PAR_LEFT","OP_PAR_RIGHT","MemberFunctionAttribute"];
@@ -352,6 +367,8 @@ static this() {
     types_children["TryStatement"] = ["KW_TRY","Statement","Catches","Finally"];
     types_extra_interfaces["TryStatement"] = ["Statement"];
     types_children["Type"] = ["KW_CONST","KW_IMMUTABLE","KW_INOUT","KW_SHARED","BasicType","TypeSuffix*"];
+    types_extra_interfaces["Type"] = ["DTypedElement"];
+    types_mixins["Type"] = "DLanguageTypeImplMixin";
     types_children["TypeConstructExpression"] = ["KW_IMMUTABLE", "KW_CONST", "KW_INOUT", "KW_SHARED", "Type", "OP_PAR_LEFT", "ArgumentList", "OP_PAR_RIGHT"];
     types_extra_interfaces["TypeConstructExpression"] = ["Expression"];
     types_children["TypePropertyExpression"] = ["KW_IMMUTABLE", "KW_CONST", "KW_INOUT", "KW_SHARED", "Type", "OP_DOT", "Identifier"];
@@ -362,6 +379,7 @@ static this() {
     types_children["TypeSpecialization"] = ["Type","KW___PARAMETERS","KW_STRUCT","KW_UNION","KW_CLASS","KW_INTERFACE","KW_ENUM","KW___VECTOR","KW_FUNCTION","KW_DELEGATE","KW_SUPER","KW_CONST","KW_IMMUTABLE","KW_INOUT","KW_SHARED","KW_RETURN","KW_MODULE","KW_PACKAGE"];
     types_children["TypeSuffix"] = ["Expression*","OP_TRIPLEDOT","KW_FUNCTION","KW_DELEGATE","OP_ASTERISK","MemberFunctionAttribute*","Parameters","OP_BRACKET_LEFT","OP_BRACKET_RIGHT"];
     types_children["UnaryExpression"] = ["Expression","OP_AND","OP_ASTERISK","OP_MINUS","OP_MINUS_MINUS","OP_NOT","OP_PLUS","OP_PLUS_PLUS","OP_TILDA"];
+    types_mixins["UnaryExpression"] = "DLanguageUnaryExpressionImplMixin";
     types_extra_interfaces["UnaryExpression"] = ["Expression"];
     stub_children ["Unittest"] = ["Unittest",  "BlockStatement"];
     types_extra_interfaces["Unittest"] = ["Declaration"];

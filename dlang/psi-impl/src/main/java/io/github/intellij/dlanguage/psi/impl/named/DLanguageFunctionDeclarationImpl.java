@@ -8,14 +8,17 @@ import com.intellij.psi.scope.PsiScopeProcessor;
 import com.intellij.psi.stubs.IStubElementType;
 import com.intellij.psi.util.PsiTreeUtil;
 import io.github.intellij.dlanguage.psi.*;
+import io.github.intellij.dlanguage.psi.impl.DNamedStubbedPsiElementBase;
 import io.github.intellij.dlanguage.psi.interfaces.FunctionBody;
 import io.github.intellij.dlanguage.psi.named.DLanguageFunctionDeclaration;
-import io.github.intellij.dlanguage.psi.impl.DNamedStubbedPsiElementBase;
+import io.github.intellij.dlanguage.psi.types.DPrimitiveType;
+import io.github.intellij.dlanguage.psi.types.DType;
 import io.github.intellij.dlanguage.resolve.ScopeProcessorImpl;
 import io.github.intellij.dlanguage.stubs.DLanguageFunctionDeclarationStub;
-import java.util.List;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+
+import java.util.List;
 
 /**
  * Created by francis on 7/14/2017.
@@ -106,5 +109,16 @@ public class DLanguageFunctionDeclarationImpl extends
     @Override
     public boolean processDeclarations(@NotNull final PsiScopeProcessor processor, @NotNull final ResolveState state, final PsiElement lastParent, @NotNull final PsiElement place) {
         return ScopeProcessorImpl.INSTANCE.processDeclarations(this,processor, state, lastParent, place);
+    }
+
+    @Override
+    public @NotNull DType getDType() {
+        var basicType = getBasicType();
+        if (basicType != null)
+            return basicType.getDType();
+        var auto = getAutoElem();
+        if (auto != null)
+            return DPrimitiveType.fromText("byte"); // TODO
+        throw new IllegalStateException("Unreachable statement");
     }
 }

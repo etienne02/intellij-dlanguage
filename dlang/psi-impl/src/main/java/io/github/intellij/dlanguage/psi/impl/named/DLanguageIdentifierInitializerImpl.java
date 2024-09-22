@@ -7,12 +7,12 @@ import com.intellij.psi.ResolveState;
 import com.intellij.psi.scope.PsiScopeProcessor;
 import com.intellij.psi.stubs.IStubElementType;
 import com.intellij.psi.util.PsiTreeUtil;
-import io.github.intellij.dlanguage.psi.DLanguageInitializer;
-import io.github.intellij.dlanguage.psi.DLanguageTemplateParameters;
-import io.github.intellij.dlanguage.psi.named.DLanguageIdentifierInitializer;
-import io.github.intellij.dlanguage.psi.DlangTypes;
-import io.github.intellij.dlanguage.psi.DlangVisitor;
+import io.github.intellij.dlanguage.psi.*;
 import io.github.intellij.dlanguage.psi.impl.DNamedStubbedPsiElementBase;
+import io.github.intellij.dlanguage.psi.named.DLanguageIdentifierInitializer;
+import io.github.intellij.dlanguage.psi.types.DArrayType;
+import io.github.intellij.dlanguage.psi.types.DPointerType;
+import io.github.intellij.dlanguage.psi.types.DType;
 import io.github.intellij.dlanguage.resolve.ScopeProcessorImpl;
 import io.github.intellij.dlanguage.stubs.DLanguageIdentifierInitializerStub;
 import org.jetbrains.annotations.NotNull;
@@ -67,5 +67,24 @@ public class DLanguageIdentifierInitializerImpl extends
     @Override
     public boolean processDeclarations(@NotNull final PsiScopeProcessor processor, @NotNull final ResolveState state, final PsiElement lastParent, @NotNull final PsiElement place) {
         return ScopeProcessorImpl.INSTANCE.processDeclarations(this,processor, state, lastParent, place);
+    }
+
+    @Override
+    public @NotNull DType getDType() {
+        var parent = getParent();
+        var basicType = ((DLanguageSpecifiedVariableDeclaration) parent).getBasicType();
+        assert basicType != null;
+        var type = basicType.getDType();
+        for (var suffix : ((DLanguageSpecifiedVariableDeclaration) parent).getTypeSuffixs()) {
+            if (suffix.getOP_ASTERISK() != null) {
+                type = new DPointerType(type);
+            }
+            if (suffix.getOP_BRACKET_LEFT() != null) {
+                type = new DArrayType(type, null);
+                // TODO handle static arrays (expressions != null), aka array with size
+            }
+            // TODO others
+        }
+        return type;
     }
 }
