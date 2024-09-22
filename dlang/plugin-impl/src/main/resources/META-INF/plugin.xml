@@ -161,6 +161,8 @@
 
         <completion.contributor language="D"
                                 implementationClass="io.github.intellij.dlanguage.codeinsight.DCompletionContributor"/>
+        <completion.contributor language="D"
+                                implementationClass="io.github.intellij.dlanguage.codeinsight.completion.DKeywordCompletionContributor"/>
 
         <!-- folding -->
         <lang.foldingBuilder language="D" implementationClass="io.github.intellij.dlanguage.folding.DFoldingBuilder"/>
