@@ -15,7 +15,7 @@ public interface DStubElementTypes {
     IElementType MODULE_DECLARATION = new ModuleDeclarationStubElementType("MODULE_DECLARATION");
     IElementType IDENTIFIER_INITIALIZER = new IdentifierInitializerStubElementType("IDENTIFIER_INITIALIZER");
     IElementType DECLARATOR_IDENTIFIER = new DeclaratorIdentifierStubElementType("DECLARATOR_IDENTIFIER");
-    IElementType LABELED_STATEMENT = new LabeledStatementStubElementType("LABELED_STATEMENT");
+    IElementType LABELED_STATEMENT = new LabeledStatementStubElementType("LABELED_STATEMENT");  // TODO not a stub
     IElementType SHARED_STATIC_CONSTRUCTOR = new SharedStaticConstructorStubElementType("SHARED_STATIC_CONSTRUCTOR");
     IElementType SHARED_STATIC_DESTRUCTOR = new SharedStaticDestructorStubElementType("SHARED_STATIC_DESTRUCTOR");
     IElementType STATIC_CONSTRUCTOR = new StaticConstructorStubElementType("STATIC_CONSTRUCTOR");
@@ -26,8 +26,8 @@ public interface DStubElementTypes {
     IElementType IMPORT_DECLARATION = new DLanguageImportDeclarationStubElementType("IMPORT_DECLARATION");
     IElementType SINGLE_IMPORT = new SingleImportStubElementType("SINGLE_IMPORT");
     IElementType UNITTEST = new UnittestStubElementType("UNITTEST");
-    IElementType CATCH = new CatchStubElementType("CATCH");
-    IElementType IF_CONDITION = new DlangIfConditionStubElementType("IF_CONDITION");
+    IElementType CATCH = new CatchStubElementType("CATCH");  // TODO not a stub
+    IElementType IF_CONDITION = new DlangIfConditionStubElementType("IF_CONDITION");  // TODO not a stub
     IElementType FOREACH_TYPE = new DlangForeachTypeStubElementType("FOREACH_TYPE");
     IElementType PARAMETER = new DlangParameterStubElementType("PARAMETER");
     IElementType TEMPLATE_ALIAS_PARAMETER = new DlangTemplateAliasParameterStubElementType("TEMPLATE_ALIAS_PARAMETER");
