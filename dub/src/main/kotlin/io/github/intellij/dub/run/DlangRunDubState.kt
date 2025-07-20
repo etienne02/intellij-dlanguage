@@ -24,7 +24,7 @@ class DlangRunDubState internal constructor(
     private val config: DlangRunDubConfiguration
 ) : CommandLineState(environment) {
     @Throws(ExecutionException::class)
-    override fun startProcess(): ProcessHandler {
+    public override fun startProcess(): ProcessHandler {
         return try {
             val dubCommandLine = getExecutableCommandLine(config)
             val handler: ProcessHandler =

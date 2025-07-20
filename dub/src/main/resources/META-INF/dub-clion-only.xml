@@ -1,5 +1,7 @@
 <idea-plugin>
 
+    <depends optional="true" config-file="io.github.intellij.dub.clion.xml">com.intellij.modules.cidr.lang</depends>
+
     <extensions defaultExtensionNs="com.intellij">
         <projectOpenProcessor id="DubProjectOpenProcessor"
                               implementation="io.github.intellij.dub.project.CLionDubProjectOpenProcessor" order="first"/>

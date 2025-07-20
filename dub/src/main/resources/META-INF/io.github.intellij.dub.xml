@@ -3,6 +3,7 @@
     <depends>com.intellij.modules.json</depends>
     <depends optional="true" config-file="dub-idea-only.xml">com.intellij.modules.java</depends>
     <depends optional="true" config-file="dub-clion-only.xml">com.intellij.modules.cidr.lang</depends>
+    <depends optional="true" config-file="dub-clion-only.xml">com.intellij.modules.cidr.lang</depends>
 
     <extensions defaultExtensionNs="com.intellij">
         <!-- Tool Windows are the bits generally displayed on right hand side of Intellij (eg: Ant,Maven,Gradle)-->
@@ -25,6 +26,10 @@
         <runConfigurationProducer implementation="io.github.intellij.dub.run.DlangRunDubConfigurationProducer"/>
 
         <configurationType implementation="io.github.intellij.dub.run.DlangRunDubConfigurationType"/>
+
+        <stepsBeforeRunProvider implementation="io.github.intellij.dub.run.DubBuildTaskProvider"/>
+
+        <projectTaskRunner implementation="io.github.intellij.dub.run.DubBuildTaskRunner"/>
 
         <programRunner implementation="io.github.intellij.dub.run.DubBuildRunner"/>
         <programRunner implementation="io.github.intellij.dub.run.RunAppRunner"/>

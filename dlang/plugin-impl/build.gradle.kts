@@ -82,13 +82,14 @@ dependencies {
         pluginModule(implementation (project(":debugger")))
         pluginModule(implementation (project(":sdlang")))
         pluginModule(implementation (project(":dub")))
+        pluginModule(implementation (project(":dub:clion")))
         pluginModule(implementation (project(":dlang:psi-impl")))
 
-        intellijIdeaCommunity(properties("ideaVersion"))
+        clion(properties("ideaVersion"))
 
         bundledPlugins(
-            "com.intellij.java",
-            "com.intellij.java.ide",
+            //"com.intellij.java",
+            //"com.intellij.java.ide",
             "com.intellij.modules.json",
             "org.intellij.intelliLang",
             "com.intellij.copyright"

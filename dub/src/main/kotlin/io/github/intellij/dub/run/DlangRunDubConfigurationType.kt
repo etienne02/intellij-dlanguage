@@ -2,6 +2,7 @@ package io.github.intellij.dub.run
 
 import com.intellij.execution.configurations.ConfigurationType
 import com.intellij.execution.configurations.ConfigurationTypeBase
+import com.intellij.execution.configurations.ConfigurationTypeUtil
 import com.intellij.execution.configurations.RunConfiguration
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.util.io.FileUtil
@@ -28,5 +29,10 @@ class DlangRunDubConfigurationType : ConfigurationTypeBase(
             val file = FileUtil.findFileInProvidedPath(project.basePath!!, "dub.json", "dub.sdl")
             return !file.isNullOrEmpty()
         }
+    }
+
+    companion object {
+        fun getInstance(): DlangRunDubConfigurationType =
+            ConfigurationTypeUtil.findConfigurationType(DlangRunDubConfigurationType::class.java)
     }
 }
