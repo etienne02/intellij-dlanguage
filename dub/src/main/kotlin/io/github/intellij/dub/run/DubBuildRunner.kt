@@ -1,7 +1,6 @@
 package io.github.intellij.dub.run
 
 import com.intellij.execution.ExecutionException
-import com.intellij.execution.ExecutionManager
 import com.intellij.execution.Executor
 import com.intellij.execution.configurations.RunProfile
 import com.intellij.execution.configurations.RunProfileState
@@ -28,7 +27,7 @@ import java.nio.file.Paths
  * the ProgramRunner<Settings extends RunnerSettings> interface
 </Settings> */
 class DubBuildRunner : GenericProgramRunner<DubBuildRunner.DubBuildSettings>() {
-    override fun getRunnerId(): String = javaClass.simpleName
+    override fun getRunnerId(): String = RUNNER_ID
 
     override fun canRun(executorId: String, profile: RunProfile): Boolean {
         return (DefaultDebugExecutor.EXECUTOR_ID == executorId || DefaultRunExecutor.EXECUTOR_ID == executorId) && profile is DlangRunDubConfiguration
@@ -70,5 +69,6 @@ class DubBuildRunner : GenericProgramRunner<DubBuildRunner.DubBuildSettings>() {
         private val log = Logger.getInstance(
             DubBuildRunner::class.java
         )
+        const val RUNNER_ID = "DubBuildRunner"
     }
 }

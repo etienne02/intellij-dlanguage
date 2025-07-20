@@ -1,0 +1,10 @@
+<idea-plugin>
+    <dependencies>
+        <plugin id="com.intellij.clion"/>
+        <plugin id="com.intellij.cidr.base"/>
+    </dependencies>
+
+    <extensions defaultExtensionNs="cidr">
+        <buildConfigurationProvider implementation="io.github.intellij.dub.clion.DubBuildConfigurationProvider"/>
+    </extensions>
+</idea-plugin>
