@@ -4191,7 +4191,7 @@ internal class DLangParser(private val builder: PsiBuilder) {
      *
      *
      * $(GRAMMAR $(RULEDEF isExpression):
-     * $(LITERAL'is') $(LITERAL '$(LPAREN)') $(RULE type) $(LITERAL identifier)? $(LITERAL '$(RPAREN)')
+     *   $(LITERAL'is') $(LITERAL '$(LPAREN)') $(RULE type) $(LITERAL identifier)? $(LITERAL '$(RPAREN)')
      * | $(LITERAL'is') $(LITERAL '$(LPAREN)') $(RULE type) $(LITERAL identifier)? $(LITERAL ':') $(RULE typeSpecialization) $(LITERAL '$(RPAREN)')
      * | $(LITERAL'is') $(LITERAL '$(LPAREN)') $(RULE type) $(LITERAL identifier)? $(LITERAL '=') $(RULE typeSpecialization) $(LITERAL '$(RPAREN)')
      * | $(LITERAL'is') $(LITERAL '$(LPAREN)') $(RULE type) $(LITERAL identifier)? $(LITERAL ':') $(RULE typeSpecialization) $(LITERAL ',') $(RULE templateParameterList) $(LITERAL '$(RPAREN)')
@@ -4200,10 +4200,9 @@ internal class DLangParser(private val builder: PsiBuilder) {
      */
     fun parseIsExpression(): PsiBuilder.Marker? {
         val m = builder.mark()
-        if (!tokenCheck(DlangTypes.KW_IS)) {
-            cleanup(m, DlangTypes.IS_EXPRESSION)
-            return null
-        }
+        assert(builder.tokenType === DlangTypes.KW_IS)
+        builder.advanceLexer()
+
         if (!tokenCheck(DlangTypes.OP_PAR_LEFT)) {
             cleanup(m, DlangTypes.IS_EXPRESSION)
             return null
@@ -4212,7 +4211,7 @@ internal class DLangParser(private val builder: PsiBuilder) {
             cleanup(m, DlangTypes.IS_EXPRESSION)
             return null
         }
-        if (currentIs(DlangTypes.ID))
+        if (builder.tokenType === DlangTypes.ID)
             advance()
 
         if (currentIsOneOf(DlangTypes.OP_EQ_EQ, DlangTypes.OP_COLON)) {
@@ -4221,12 +4220,12 @@ internal class DLangParser(private val builder: PsiBuilder) {
                 cleanup(m, DlangTypes.IS_EXPRESSION)
                 return null
             }
-        }
-        if (currentIs(DlangTypes.OP_COMMA)) {
-            advance()
-            if (!parseTemplateParameterList()) {
-                cleanup(m, DlangTypes.IS_EXPRESSION)
-                return null
+            if (builder.tokenType === DlangTypes.OP_COMMA) {
+                advance()
+                if (!parseTemplateParameterList()) {
+                    cleanup(m, DlangTypes.IS_EXPRESSION)
+                    return null
+                }
             }
         }
         tokenCheck(DlangTypes.OP_PAR_RIGHT)
@@ -4256,7 +4255,7 @@ internal class DLangParser(private val builder: PsiBuilder) {
             cleanup(m, DlangTypes.KEY_VALUE_PAIR)
             return false
         }
-        exit_section_modified(builder, m, DlangTypes.KEY_VALUE_PAIR, true)
+        m.done(DlangTypes.KEY_VALUE_PAIR)
         return true
     }
 
@@ -6794,7 +6793,7 @@ internal class DLangParser(private val builder: PsiBuilder) {
             if (builder.tokenType !== DlangTypes.OP_COMMA)
                 break
 
-            advance()
+            builder.advanceLexer()
 
             if (currentIsOneOf(
                     DlangTypes.OP_PAR_RIGHT,
@@ -7174,7 +7173,7 @@ internal class DLangParser(private val builder: PsiBuilder) {
             cleanup(m, DlangTypes.TYPE)
             return false
         }
-        while (moreTokens()) {
+        while (!builder.eof()) {
             val i1 = current()
 
             if (i1 === DlangTypes.OP_BRACKET_LEFT) {
@@ -7387,7 +7386,7 @@ internal class DLangParser(private val builder: PsiBuilder) {
      *
      *
      * $(GRAMMAR $(RULEDEF typeSpecialization):
-     * $(RULE type)
+     *   $(RULE type)
      * | $(LITERAL 'struct')
      * | $(LITERAL 'union')
      * | $(LITERAL 'class')
@@ -7410,7 +7409,7 @@ internal class DLangParser(private val builder: PsiBuilder) {
      */
     fun parseTypeSpecialization(): Boolean {
         val m = builder.mark()
-        val i = current()
+        val i = builder.tokenType
         if ((isTypeCtor(i) || i === DlangTypes.KW___VECTOR) && peekIsOneOf(DlangTypes.OP_PAR_RIGHT, DlangTypes.OP_COMMA))
             advance()
         else if (i === DlangTypes.KW_STRUCT || i === DlangTypes.KW_UNION || i === DlangTypes.KW_CLASS || i === DlangTypes.KW_INTERFACE || i === DlangTypes.KW_ENUM ||
@@ -8292,7 +8291,7 @@ internal class DLangParser(private val builder: PsiBuilder) {
      * calls the error function and returns null. Advances the lexer by one token.
      */
     private fun expect(tok: IElementType): IElementType? {
-        if (!builder.eof() && builder.tokenType === tok) {
+        if (builder.tokenType === tok) {
             return advance()
         } else {
             val tokenString = tok.debugName
