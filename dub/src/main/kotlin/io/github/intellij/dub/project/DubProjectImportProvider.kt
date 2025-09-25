@@ -1,46 +1,24 @@
 package io.github.intellij.dub.project
 
+import com.intellij.ide.util.projectWizard.ModuleWizardStep
+import com.intellij.ide.util.projectWizard.WizardContext
 import com.intellij.openapi.externalSystem.service.project.wizard.AbstractExternalProjectImportProvider
-import com.intellij.openapi.project.Project
 import com.intellij.openapi.vfs.VirtualFile
 import io.github.intellij.dub.Dub
-import java.util.*
 
 /**
  * IDEA only
  */
+@Deprecated("Use the open and link project utility functions")
 class DubProjectImportProvider : AbstractExternalProjectImportProvider(DubProjectImportBuilder(), Dub.SYSTEM_ID) {
 
-    override fun canImport(
-        fileOrDirectory: VirtualFile,
-        project: Project?
-    ): Boolean {
-        // If we're not importing a directory, validate it as a file.
-        if (!fileOrDirectory.isDirectory) return canImportFromFile(fileOrDirectory)
-
-        // check for dub.json
-        val dubJson = fileOrDirectory.findChild("dub.json")
-        if (dubJson != null) {
-            if (canImportFromFile(dubJson)) {
-                return true
-            }
-        }
-
-        // check for dub.sdl
-        val dubSdl = fileOrDirectory.findChild("dub.sdl")
-        if (dubSdl != null) {
-            if (canImportFromFile(dubSdl)) {
-                return true
-            }
-        }
-
-        // alternatively, check all the children for a dub.json or a dub.sdl
-        return Arrays.stream(fileOrDirectory.children)
-            .filter { f: VirtualFile -> !f.isDirectory }
-            .anyMatch { file: VirtualFile -> canImportFromFile(file) }
+    override fun createSteps(context: WizardContext): Array<ModuleWizardStep> {
+        return ModuleWizardStep.EMPTY_ARRAY
     }
 
-    public override fun canImportFromFile(file: VirtualFile): Boolean {
-        return "dub.json".equals(file.name, ignoreCase = true) || "dub.sdl".equals(file.name, ignoreCase = true)
-    }
+    override fun getPathToBeImported(file: VirtualFile): String = getDefaultPath(file)
+
+    override fun canImportFromFile(file: VirtualFile): Boolean = canOpenDubProject(file)
+
+    override fun getFileSample(): String = "<b>Dub</b> project file (dub.json, dub.sdl)"
 }
