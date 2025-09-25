@@ -5,7 +5,6 @@
                        builderClass="io.github.intellij.dub.module.DlangDubModuleBuilder"/>
 
         <projectImportProvider implementation="io.github.intellij.dub.project.DubProjectImportProvider"/>
-        <projectImportBuilder implementation="io.github.intellij.dub.project.DubProjectImportBuilder"/>
     </extensions>
 
     <extensions defaultExtensionNs="io.github.intellij.dlanguage">
