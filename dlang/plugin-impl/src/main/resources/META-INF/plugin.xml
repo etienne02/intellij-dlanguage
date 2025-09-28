@@ -294,6 +294,8 @@
 
         <navbar implementation="io.github.intellij.dlanguage.structure.DLanguageStructureAwareNavbar"/>
 
+        <breadcrumbsInfoProvider implementation="io.github.intellij.dlanguage.structure.DLanguageBreadcrumbsProvider"/>
+
         <!-- Show a widget in the status bar to indicate whether DCD Server is running or not -->
         <statusBarWidgetFactory id="DCD Server status" order="first" implementation="io.github.intellij.dlanguage.dcd.server.DCDServerStatusBarWidgetFactory" />
 
