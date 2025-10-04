@@ -84,6 +84,15 @@ class AutoValueAssignmentTypeTest : LightPlatformCodeInsightFixture4TestCase() {
         doTest("void*", """void[] x; auto expr = x.ptr;""")
     }
 
+    @Test
+    fun testArrayLiteralInitializer() {
+        doTest("int[]", """auto expr = [1, 2, 3];""")
+        doTest("float[]", """auto expr = [1f, 2f, 3f];""")
+        doTest("double[]", """auto expr = [1., 2., 3.];""")
+        doTest("float[]", """auto expr = [1, 2f, 3];""")
+        doTest("double[]", """auto expr = [1, 2., 3];""")
+    }
+
     /**
      * Take a file text and the expected type string representation and ensure that the expression named (expr) has the corresponding type
      */
